@@ -24,10 +24,10 @@ arcpy.env.overwriteOutput = True
 #Get the value of the input parameter
 #%%input file
 export_ext="xlsx"
-l_pnt=r'C:\Dropbox (OCHA)\GIS\02_Geodatabase\Syria.gdb\Settlements\syr_pplp_adm4_unocha_forAoC'
-l_ply=r'C:\Dropbox (OCHA)\gis\01_Analysis_Projects\02_Thematic\Humanitarian_Access\data\shape\Territorial Control.gdb\Areas_of_influence_20170925'
-f_save_path=r"C:\Dropbox (OCHA)\gis\01_Analysis_Projects\999_Punya_Working\Analysis"
-f_save_gdb=r"C:\Dropbox (OCHA)\gis\01_Analysis_Projects\999_Punya_Working\Analysis\Analysis.mdb"
+l_pnt=r'C:\Dropbox\Settlements\syr_pplp_adm4_unocha_forAoC'
+l_ply=r'C:\Dropbox\Areas_of_influence_20170925'
+f_save_path=r"C:\gis\01_Analysis_Projects\999_Punya_Working\Analysis"
+f_save_gdb=r"C:\gis\01_Analysis_Projects\999_Punya_Working\Analysis\Analysis.mdb"
 #%%create XLSX save name
 f_save_name=os.path.join(f_save_path,os.path.basename(l_ply)+"_community.xls")
 # Local temporary save file
@@ -54,12 +54,12 @@ for field in arcpy.ListFields(t_l_pnt):
 #field_list= fields_list(t_l_pnt)
 field_list=['admin1Name_en','admin2Name_en','admin3Name_en','admin3Pcode','admin4Name_en','admin4Pcode']
 field_list=fields
-fc_np=arcpy.da.FeatureClassToNumPyArray(
-        in_table=t_l_pnt,
-        field_names=field_list,
-        #skip_nulls=True
-        skip_nulls=False,
-        null_value=-99999
-        )
+fc_np = arcpy.da.FeatureClassToNumPyArray(
+                in_table=t_l_pnt,
+                field_names=field_list,
+                #skip_nulls=True
+                skip_nulls=False,
+                null_value=-99999
+                )
 fc_pd=DataFrame(fc_np)
 fc_pd.to_excel(f_save_name)
